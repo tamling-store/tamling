@@ -5,38 +5,65 @@ const Header = ({ currentLang, setLang, t }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const handleNavLinkClick = () => {
-    setMobileMenuOpen(false);
-  };
+  const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
+  const handleNavLinkClick = () => setMobileMenuOpen(false);
 
   return (
-    <header className={scrolled ? 'scrolled' : ''}>
-      <div className="container">
-        <div className="nav-wrapper">
-          <a href="#hero" className="logo">
-            Tam<span className="logo-accent">Ling</span>
+    <header className={scrolled ? 'scrolled' : ''} style={{ height: '80px', transition: 'var(--transition)' }}>
+      <div className="container" style={{ height: '100%' }}>
+        <div className="nav-wrapper" style={{ height: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+          {/* Logo + Brand identity */}
+          <a href="#hero" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '14px', textDecoration: 'none' }}>
+            <img
+              src="/images/Thương hiệu/English/Tamling store logo.jpg"
+              alt="Tamling Logo"
+              style={{
+                height: '52px',
+                width: 'auto',
+                borderRadius: '8px',
+                objectFit: 'contain',
+                boxShadow: 'var(--shadow-sm)'
+              }}
+            />
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.1' }}>
+              <span style={{
+                fontFamily: 'var(--font-heading)',
+                fontWeight: '900',
+                fontSize: '1.35rem',
+                letterSpacing: '3px',
+                color: 'var(--primary-dark)',
+                textTransform: 'uppercase'
+              }}>
+                Tamling
+              </span>
+              <span style={{
+                fontSize: '0.62rem',
+                fontWeight: '700',
+                letterSpacing: '2.5px',
+                color: 'var(--accent-dark)',
+                textTransform: 'uppercase'
+              }}>
+                Online Store
+              </span>
+            </div>
           </a>
 
+          {/* Nav links */}
           <ul className={`nav-menu ${mobileMenuOpen ? 'active' : ''}`}>
             <li>
-              <a href="#origin" className="nav-link" onClick={handleNavLinkClick}>
-                {t.nav.origin}
+              <a href="#hero" className="nav-link" onClick={handleNavLinkClick}>
+                {t.nav.home}
+              </a>
+            </li>
+            <li>
+              <a href="#about" className="nav-link" onClick={handleNavLinkClick}>
+                {t.nav.about}
               </a>
             </li>
             <li>
@@ -44,37 +71,18 @@ const Header = ({ currentLang, setLang, t }) => {
                 {t.nav.products}
               </a>
             </li>
-            <li>
-              <a href="#brewing" className="nav-link" onClick={handleNavLinkClick}>
-                {t.nav.brewing}
-              </a>
-            </li>
-            <li>
-              <a href="#benefits" className="nav-link" onClick={handleNavLinkClick}>
-                {t.nav.benefits}
-              </a>
-            </li>
-            <li>
-              <a href="#warnings" className="nav-link" onClick={handleNavLinkClick}>
-                {t.nav.warnings}
-              </a>
-            </li>
-            <li>
-              <a href="#experience" className="nav-link" onClick={handleNavLinkClick}>
-                {t.nav.experience}
-              </a>
-            </li>
           </ul>
 
+          {/* Lang switch + mobile toggle */}
           <div className="nav-actions">
             <div className="lang-switch">
-              <button 
+              <button
                 className={`lang-btn ${currentLang === 'en' ? 'active' : ''}`}
                 onClick={() => setLang('en')}
               >
                 EN
               </button>
-              <button 
+              <button
                 className={`lang-btn ${currentLang === 'vi' ? 'active' : ''}`}
                 onClick={() => setLang('vi')}
               >
@@ -88,6 +96,7 @@ const Header = ({ currentLang, setLang, t }) => {
               <span style={{ transform: mobileMenuOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none' }}></span>
             </div>
           </div>
+
         </div>
       </div>
     </header>

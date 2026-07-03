@@ -8,6 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.node/
+.mingit/
+mingit.zip
 dist
 dist-ssr
 *.local

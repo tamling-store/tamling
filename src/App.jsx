@@ -115,6 +115,39 @@ function App() {
           F
         </a>
 
+        {/* Instagram */}
+        <a
+          href="https://www.instagram.com/tamling.store/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title={translations.connect.instagram}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '54px',
+            height: '54px',
+            borderRadius: '50%',
+            backgroundColor: '#e1306c',
+            color: '#fff',
+            fontSize: '1.5rem',
+            fontWeight: '800',
+            boxShadow: '0 4px 15px rgba(225, 48, 108, 0.4)',
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+            textDecoration: 'none'
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.transform = 'scale(1.08)';
+            e.currentTarget.style.boxShadow = '0 6px 20px rgba(225, 48, 108, 0.6)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 15px rgba(225, 48, 108, 0.4)';
+          }}
+        >
+          I
+        </a>
+
         {/* WhatsApp */}
         <a
           href="https://wa.me/84981498668"

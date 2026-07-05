@@ -123,6 +123,36 @@ const Footer = ({ t }) => {
             >
               <span>🟢</span> {t.connect.whatsapp}
             </a>
+
+            {/* Instagram */}
+            <a 
+              href="https://www.instagram.com/tamling.store/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ 
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 20px',
+                borderRadius: '25px',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                fontSize: '0.9rem',
+                fontWeight: '600',
+                color: 'var(--bg-main)',
+                transition: 'var(--transition)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#e1306c';
+                e.currentTarget.style.borderColor = '#e1306c';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              }}
+            >
+              <span>📸</span> {t.connect.instagram}
+            </a>
           </div>
 
           <div style={{ borderTop: '1px solid rgba(245, 247, 245, 0.1)', width: '100%', paddingTop: '20px', fontSize: '0.8rem', color: 'rgba(245, 247, 245, 0.4)' }}>

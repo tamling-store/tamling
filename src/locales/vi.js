@@ -43,7 +43,8 @@ const vi = {
     desc: "Liên hệ trực tiếp với Tamling qua các kênh chính thức. Nhắn cho chúng tôi để đặt hàng, tìm hiểu sản phẩm, hoặc đăng ký buổi thưởng trà.",
     zalo: "Nhắn tin qua Zalo",
     messenger: "Facebook Messenger",
-    whatsapp: "Trò chuyện WhatsApp"
+    whatsapp: "Trò chuyện WhatsApp",
+    instagram: "Instagram"
   },
   footer: {
     copyright: "© 2026 Tamling. Bảo lưu mọi quyền.",

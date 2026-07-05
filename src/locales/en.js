@@ -43,7 +43,8 @@ const en = {
     desc: "Reach out to Tamling directly through our official channels. Contact us for orders, product enquiries, or private tasting sessions.",
     zalo: "Message via Zalo",
     messenger: "Facebook Messenger",
-    whatsapp: "WhatsApp Chat"
+    whatsapp: "WhatsApp Chat",
+    instagram: "Instagram"
   },
   footer: {
     copyright: "© 2026 Tamling. All rights reserved.",

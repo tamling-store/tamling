@@ -21,7 +21,7 @@ const en = {
     title: "Product Catalog",
     subtitle: "Premium Selection",
     categories: {
-      ceramic: "Vietnam's Organic Mineral Stoneware",
+      ceramic: "Vietnam's Active Trace Element & Organic Stoneware",
       incense: "Zen Incense",
       specialtyTea: "Vietnamese Specialty Teas",
       wellnessTea: "Daily Detox & Wellness Herbal Tea",

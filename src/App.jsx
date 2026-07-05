@@ -82,6 +82,39 @@ function App() {
           Z
         </a>
 
+        {/* Facebook */}
+        <a
+          href="https://www.facebook.com/Tamling.organic.store"
+          target="_blank"
+          rel="noopener noreferrer"
+          title={translations.connect.messenger}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '54px',
+            height: '54px',
+            borderRadius: '50%',
+            backgroundColor: '#1877f2',
+            color: '#fff',
+            fontSize: '1.5rem',
+            fontWeight: '800',
+            boxShadow: '0 4px 15px rgba(24, 119, 242, 0.4)',
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+            textDecoration: 'none'
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.transform = 'scale(1.08)';
+            e.currentTarget.style.boxShadow = '0 6px 20px rgba(24, 119, 242, 0.6)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 15px rgba(24, 119, 242, 0.4)';
+          }}
+        >
+          F
+        </a>
+
         {/* WhatsApp */}
         <a
           href="https://wa.me/84981498668"

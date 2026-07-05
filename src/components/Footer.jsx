@@ -65,9 +65,8 @@ const Footer = ({ t }) => {
               <span>🔵</span> {t.connect.zalo}
             </a>
 
-            {/* Messenger */}
             <a 
-              href="https://m.me/" 
+              href="https://www.facebook.com/Tamling.organic.store" 
               target="_blank" 
               rel="noopener noreferrer"
               style={{ 

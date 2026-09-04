@@ -525,7 +525,7 @@ const Products = ({ t, currentLang }) => {
                 ))}
               </div>
 
-              {/* Brewing methods */}
+              {/* Brewing methods & Notice */}
               <div className="sub-sections">
                 <div className="sub-nav">
                   <button
@@ -539,6 +539,12 @@ const Products = ({ t, currentLang }) => {
                     onClick={() => setBrewingTab(1)}
                   >
                     {t.catalog.brewingPourover}
+                  </button>
+                  <button
+                    className={`sub-nav-btn ${brewingTab === 2 ? 'active' : ''}`}
+                    onClick={() => setBrewingTab(2)}
+                  >
+                    {t.catalog.noticeTitle}
                   </button>
                 </div>
 
@@ -571,6 +577,22 @@ const Products = ({ t, currentLang }) => {
                         t.catalog.brewingPourover,
                         `${sp}/${specialtyFolder}/${
                           currentLang === 'vi' ? 'Cách Pha Trà Pour-over.jpg' : 'MODERN POUR-OVER.jpg'
+                        }`
+                      )}
+                    />
+                  )}
+                  {brewingTab === 2 && (
+                    <img
+                      src={`${sp}/${specialtyFolder}/${
+                        currentLang === 'vi' ? 'Luu Y .jpg' : 'IMPORTANT NOTICE.jpg'
+                      }`}
+                      alt={t.catalog.noticeTitle}
+                      className="catalog-single-img"
+                      style={{ maxWidth: '820px' }}
+                      onClick={() => openLightbox(
+                        t.catalog.noticeTitle,
+                        `${sp}/${specialtyFolder}/${
+                          currentLang === 'vi' ? 'Luu Y .jpg' : 'IMPORTANT NOTICE.jpg'
                         }`
                       )}
                     />

@@ -68,12 +68,13 @@ const Products = ({ t, currentLang }) => {
         { file: 'DONATE FREE PROJECT.jpg',label: 'Donate Free Project' },
       ];
 
-  // ── 7 Specialty Teas ─────────────────────────────────────────────────────
+  // ── 8 Specialty Teas ─────────────────────────────────────────────────────
   const teas = currentLang === 'vi'
     ? [
         { id: 'bich-sa',    name: 'Bích Sa Trà',   file: 'Bích Sa Trà.jpg' },
         { id: 'bach-van',   name: 'Bạch Vân Trà',  file: 'Bạch Vân Trà.jpg' },
         { id: 'hoang-nha',  name: 'Hoàng Nha Trà', file: 'Hoàng Nha Trà.jpg' },
+        { id: 'huyen-dong', name: 'Huyền Động Trà',file: 'Huyền Động Trà.jpg' },
         { id: 'hong-duong', name: 'Hồng Dương Trà',file: 'Hồng Dương Trà.jpg' },
         { id: 'luc-tuyen',  name: 'Lục Tuyền Trà', file: 'Lục Tuyền Trà.jpg' },
         { id: 'ngoc-suong', name: 'Ngọc Sương Trà',file: 'Ngọc Sương Trà.jpg' },
@@ -83,6 +84,7 @@ const Products = ({ t, currentLang }) => {
         { id: 'bich-sa',    name: 'Navi Sand Tea',     file: 'Navi Sand Tea.jpg' },
         { id: 'bach-van',   name: 'White Cloud Tea',   file: 'White Cloud Tea.jpg' },
         { id: 'hoang-nha',  name: 'Yellow Syrupt Tea', file: 'Yellow Syrupt Tea.jpg' },
+        { id: 'huyen-dong', name: 'Black Cavern Tea',  file: 'Black Cavern Tea.jpg' },
         { id: 'hong-duong', name: 'Pink Sunshine Tea', file: 'Pink Sunshine Tea.jpg' },
         { id: 'luc-tuyen',  name: 'Green Cascade Tea', file: 'Green Cascade Tea.jpg' },
         { id: 'ngoc-suong', name: 'Turquoise Brume Tea',file: 'Turquoise Brume Tea.jpg' },
@@ -261,10 +263,10 @@ const Products = ({ t, currentLang }) => {
         }
         .teas-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(4, 1fr);
           gap: 16px;
           width: 100%;
-          max-width: 860px;
+          max-width: 920px;
           margin-bottom: 36px;
         }
         .tea-item-card {
@@ -523,6 +525,47 @@ const Products = ({ t, currentLang }) => {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* PDF Catalogue Button */}
+              <div style={{ marginBottom: '30px', textAlign: 'center' }}>
+                <a
+                  href={`${sp}/${specialtyFolder}/${currentLang === 'vi' ? 'Trà cổ thụ đặc sản Việt Nam.pdf' : 'Vietnam Specialty TEAS.pdf'}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    padding: '12px 26px',
+                    borderRadius: '25px',
+                    backgroundColor: 'var(--primary)',
+                    color: 'var(--bg-main)',
+                    fontSize: '0.92rem',
+                    fontWeight: '600',
+                    textDecoration: 'none',
+                    boxShadow: 'var(--shadow-sm)',
+                    transition: 'var(--transition)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--primary-dark)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--primary)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="12" y1="18" x2="12" y2="12"></line>
+                    <polyline points="9 15 12 18 15 15"></polyline>
+                  </svg>
+                  {t.catalog.downloadPdf}
+                </a>
               </div>
 
               {/* Brewing methods & Notice */}

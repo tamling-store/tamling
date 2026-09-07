@@ -36,7 +36,8 @@ const en = {
     brewingTeapot: "Teapot Brewing Guide",
     brewingPourover: "Pour-Over Brewing Guide",
     noticeTitle: "Important Notice",
-    teasTitle: "7 Rare Specialty Teas"
+    teasTitle: "8 Rare Specialty Teas",
+    downloadPdf: "Download PDF Catalog"
   },
   connect: {
     title: "Connect with Tamling",

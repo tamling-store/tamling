@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
   /* Color Palette */
@@ -17,9 +17,9 @@
   --border: #e3ebd9;        /* Viền nhạt */
   --border-accent: rgba(197, 160, 89, 0.3);
   
-  /* Fonts - Luxury, Artistic & Flawless Vietnamese support */
-  --font-heading: 'Cormorant Garamond', 'Playfair Display', serif;
-  --font-body: 'Be Vietnam Pro', 'Outfit', sans-serif;
+  /* Fonts */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Outfit', sans-serif;
   
   /* Transitions & Shadows */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

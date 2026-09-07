@@ -36,7 +36,8 @@ const vi = {
     brewingTeapot: "Phương pháp pha ấm",
     brewingPourover: "Phương pháp pha Pour-Over",
     noticeTitle: "Lưu ý quan trọng",
-    teasTitle: "7 Danh Trà Cổ Thụ Đặc Sản Việt Nam"
+    teasTitle: "8 Danh Trà Cổ Thụ Đặc Sản Việt Nam",
+    downloadPdf: "Tải Catalogue PDF"
   },
   connect: {
     title: "Kết Nối Với Tamling",

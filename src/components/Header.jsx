@@ -71,6 +71,11 @@ const Header = ({ currentLang, setLang, t }) => {
                 {t.nav.products}
               </a>
             </li>
+            <li>
+              <a href="#reviews" className="nav-link" onClick={handleNavLinkClick}>
+                {t.nav.reviews}
+              </a>
+            </li>
           </ul>
 
           {/* Lang switch + mobile toggle */}

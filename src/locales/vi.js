@@ -3,6 +3,7 @@ const vi = {
     home: "Trang chủ",
     about: "Thương hiệu",
     products: "Sản phẩm",
+    reviews: "Đánh giá",
     connect: "Kết nối",
   },
   hero: {
@@ -49,6 +50,37 @@ const vi = {
   },
   footer: {
     copyright: "© 2026 Tamling. Bảo lưu mọi quyền.",
+  },
+  reviews: {
+    subtitle: "Đánh Giá & Trải Nghiệm",
+    title: "Cảm Nhận Từ Thượng Khách",
+    overallRating: "Đánh giá trung bình",
+    totalReviews: "đánh giá đã duyệt",
+    writeReview: "Gửi Đánh Giá Của Bạn",
+    filterAll: "Tất cả sản phẩm trà",
+    selectProduct: "Chọn sản phẩm trà",
+    yourName: "Họ và tên của bạn",
+    yourRating: "Đánh giá số sao",
+    yourComment: "Cảm nhận & Đánh giá chi tiết",
+    submitBtn: "Gửi Đánh Giá Kiểm Duyệt",
+    submitting: "Đang gửi...",
+    successTitle: "Cảm Ơn Đánh Giá Của Bạn!",
+    successMsg: "Đánh giá của bạn đã được tiếp nhận thành công. Nhằm đảm bảo tính trung thực và khách quan, đánh giá sẽ được hiển thị công khai sau khi Ban Quản Trị kiểm duyệt.",
+    close: "Đóng",
+    adminBtn: "🔒 Kiểm duyệt Review",
+    adminTitle: "Bảng Điều Khiển Kiểm Duyệt Review Quản Trị",
+    enterPin: "Nhập mã PIN Quản trị viên",
+    pinPlaceholder: "Nhập mã PIN (Ví dụ: tamling2026)",
+    loginBtn: "Xác Nhận Quản Trị",
+    invalidPin: "Mã PIN không chính xác. Vui lòng thử lại!",
+    pendingTab: "Chờ Duyệt",
+    approvedTab: "Đã Duyệt",
+    rejectedTab: "Đã Từ Chối",
+    approveAction: "✓ Phê Duyệt",
+    rejectAction: "✕ Từ Chối",
+    deleteAction: "🗑️ Xóa",
+    noReviews: "Không có đánh giá nào trong danh mục này.",
+    verifiedPurchase: "Đã thưởng trà"
   }
 };
 

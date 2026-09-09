@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
 import Products from './components/Products';
+import Reviews from './components/Reviews';
 import Footer from './components/Footer';
 
 // Translation files
@@ -33,6 +34,7 @@ function App() {
         <Hero t={translations} currentLang={lang} />
         <About t={translations} currentLang={lang} />
         <Products t={translations} currentLang={lang} />
+        <Reviews t={translations} currentLang={lang} />
       </main>
 
       <Footer t={translations} />

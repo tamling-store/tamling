@@ -611,7 +611,7 @@ const Products = ({ t, currentLang }) => {
                   {brewingTab === 1 && (
                     <img
                       src={`${sp}/${specialtyFolder}/${
-                        currentLang === 'vi' ? 'Cách Pha Trà Pour-over.jpg' : 'MODERN POUR-OVER.jpg'
+                        currentLang === 'vi' ? 'Cách Pha Trà Pour-over hoặc Phin-cafe.jpg' : 'MODERN POUR-OVER OR PHIN-FILTER.jpg'
                       }`}
                       alt={t.catalog.brewingPourover}
                       className="catalog-single-img"
@@ -619,7 +619,7 @@ const Products = ({ t, currentLang }) => {
                       onClick={() => openLightbox(
                         t.catalog.brewingPourover,
                         `${sp}/${specialtyFolder}/${
-                          currentLang === 'vi' ? 'Cách Pha Trà Pour-over.jpg' : 'MODERN POUR-OVER.jpg'
+                          currentLang === 'vi' ? 'Cách Pha Trà Pour-over hoặc Phin-cafe.jpg' : 'MODERN POUR-OVER OR PHIN-FILTER.jpg'
                         }`
                       )}
                     />
@@ -627,7 +627,7 @@ const Products = ({ t, currentLang }) => {
                   {brewingTab === 2 && (
                     <img
                       src={`${sp}/${specialtyFolder}/${
-                        currentLang === 'vi' ? 'Luu Y .jpg' : 'IMPORTANT NOTICE.jpg'
+                        currentLang === 'vi' ? 'Lưu Ý.jpg' : 'IMPORTANT NOTICE.jpg'
                       }`}
                       alt={t.catalog.noticeTitle}
                       className="catalog-single-img"
@@ -635,7 +635,7 @@ const Products = ({ t, currentLang }) => {
                       onClick={() => openLightbox(
                         t.catalog.noticeTitle,
                         `${sp}/${specialtyFolder}/${
-                          currentLang === 'vi' ? 'Luu Y .jpg' : 'IMPORTANT NOTICE.jpg'
+                          currentLang === 'vi' ? 'Lưu Ý.jpg' : 'IMPORTANT NOTICE.jpg'
                         }`
                       )}
                     />

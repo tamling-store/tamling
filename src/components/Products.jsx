@@ -180,6 +180,8 @@ const Products = ({ t, currentLang }) => {
           box-shadow: var(--shadow-lg);
           transition: var(--transition);
           cursor: zoom-in;
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
         }
         .catalog-single-img:hover {
           transform: scale(1.01);
@@ -375,6 +377,8 @@ const Products = ({ t, currentLang }) => {
           border-radius: var(--radius-sm);
           box-shadow: 0 24px 60px rgba(0,0,0,0.55);
           display: block;
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
         }
         .lightbox-close-btn {
           position: absolute;

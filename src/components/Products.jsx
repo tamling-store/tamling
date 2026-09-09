@@ -1,5 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
+// Helper function to provide responsive srcSet and sizes for catalog images (1400px Mobile HD & 2800px Desktop Ultra HD)
+const getResponsiveProps = (srcPath) => {
+  if (!srcPath || typeof srcPath !== 'string' || !srcPath.endsWith('.jpg') || srcPath.includes('-1400')) {
+    return { src: srcPath };
+  }
+  const lastDot = srcPath.lastIndexOf('.');
+  const mobileSrc = srcPath.substring(0, lastDot) + '-1400' + srcPath.substring(lastDot);
+  return {
+    src: srcPath,
+    srcSet: `${mobileSrc} 1400w, ${srcPath} 2800w`,
+    sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 85vw, 1200px"
+  };
+};
+
 const Products = ({ t, currentLang }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -434,7 +448,7 @@ const Products = ({ t, currentLang }) => {
           {activeTab === 0 && (
             <div style={{ textAlign: 'center', width: '100%' }}>
               <img
-                src={`${sp}/${ceramicFolder}/${currentLang === 'vi' ? 'Chén trà.jpg' : 'Tea Cup.jpg'}`}
+                {...getResponsiveProps(`${sp}/${ceramicFolder}/${currentLang === 'vi' ? 'Chén trà.jpg' : 'Tea Cup.jpg'}`)}
                 alt={t.catalog.categories.ceramic}
                 className="catalog-single-img"
                 onClick={() => openLightbox(
@@ -449,7 +463,7 @@ const Products = ({ t, currentLang }) => {
           {activeTab === 1 && (
             <div style={{ textAlign: 'center', width: '100%' }}>
               <img
-                src={`${sp}/${incenseFolder}/${currentLang === 'vi' ? 'Nhang Thiền.jpg' : 'Zen incense.jpg'}`}
+                {...getResponsiveProps(`${sp}/${incenseFolder}/${currentLang === 'vi' ? 'Nhang Thiền.jpg' : 'Zen incense.jpg'}`)}
                 alt={t.catalog.categories.incense}
                 className="catalog-single-img"
                 onClick={() => openLightbox(
@@ -466,11 +480,11 @@ const Products = ({ t, currentLang }) => {
               {/* Intro image — natural square ratio */}
               <div className="specialty-intro" style={{ display: 'flex', justifyContent: 'center' }}>
                 <img
-                  src={`${sp}/${specialtyFolder}/${
+                  {...getResponsiveProps(`${sp}/${specialtyFolder}/${
                     currentLang === 'vi'
                       ? 'Giới Thiệu Trà Cổ Thụ Đặc Sản Việt Nam.jpg'
                       : 'Vietnam Specialty Teas Introduction.jpg'
-                  }`}
+                  }`)}
                   alt={t.catalog.categories.specialtyTea}
                   className="catalog-single-img"
                   style={{
@@ -517,7 +531,7 @@ const Products = ({ t, currentLang }) => {
                     {/* Square thumbnail */}
                     <div className="tea-thumb-wrap">
                       <img
-                        src={`${sp}/${specialtyFolder}/${tea.file}`}
+                        {...getResponsiveProps(`${sp}/${specialtyFolder}/${tea.file}`)}
                         alt={tea.name}
                         loading="lazy"
                       />
@@ -598,9 +612,9 @@ const Products = ({ t, currentLang }) => {
                 <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                   {brewingTab === 0 && (
                     <img
-                      src={`${sp}/${specialtyFolder}/${
+                      {...getResponsiveProps(`${sp}/${specialtyFolder}/${
                         currentLang === 'vi' ? 'Cách Pha Trà Bằng Ấm.jpg' : 'INDIGENOUS BREWING.jpg'
-                      }`}
+                      }`)}
                       alt={t.catalog.brewingTeapot}
                       className="catalog-single-img"
                       style={{ maxWidth: '820px' }}
@@ -614,9 +628,9 @@ const Products = ({ t, currentLang }) => {
                   )}
                   {brewingTab === 1 && (
                     <img
-                      src={`${sp}/${specialtyFolder}/${
+                      {...getResponsiveProps(`${sp}/${specialtyFolder}/${
                         currentLang === 'vi' ? 'Cách Pha Trà Pour-over hoặc Phin-cafe.jpg' : 'MODERN POUR-OVER OR PHIN-FILTER.jpg'
-                      }`}
+                      }`)}
                       alt={t.catalog.brewingPourover}
                       className="catalog-single-img"
                       style={{ maxWidth: '820px' }}
@@ -630,9 +644,9 @@ const Products = ({ t, currentLang }) => {
                   )}
                   {brewingTab === 2 && (
                     <img
-                      src={`${sp}/${specialtyFolder}/${
+                      {...getResponsiveProps(`${sp}/${specialtyFolder}/${
                         currentLang === 'vi' ? 'Lưu Ý.jpg' : 'IMPORTANT NOTICE.jpg'
-                      }`}
+                      }`)}
                       alt={t.catalog.noticeTitle}
                       className="catalog-single-img"
                       style={{ maxWidth: '820px' }}
@@ -656,7 +670,7 @@ const Products = ({ t, currentLang }) => {
                 <button className="slider-control-btn" onClick={() => handlePrevSlide(wellnessSlides.length)}>‹</button>
                 <div style={{ textAlign: 'center', flex: 1 }}>
                   <img
-                    src={`${sp}/${wellnessFolder}/${wellnessSlides[currentSlide].file}`}
+                    {...getResponsiveProps(`${sp}/${wellnessFolder}/${wellnessSlides[currentSlide].file}`)}
                     alt={wellnessSlides[currentSlide].label}
                     className="catalog-single-img"
                     onClick={() => openLightbox(
@@ -689,7 +703,7 @@ const Products = ({ t, currentLang }) => {
                 <button className="slider-control-btn" onClick={() => handlePrevSlide(bathSlides.length)}>‹</button>
                 <div style={{ textAlign: 'center', flex: 1 }}>
                   <img
-                    src={`${sp}/${bathFolder}/${bathSlides[currentSlide].file}`}
+                    {...getResponsiveProps(`${sp}/${bathFolder}/${bathSlides[currentSlide].file}`)}
                     alt={bathSlides[currentSlide].label}
                     className="catalog-single-img"
                     onClick={() => openLightbox(

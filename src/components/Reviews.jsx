@@ -1,45 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { INITIAL_REVIEWS } from '../data/reviewsData';
 
-const DEFAULT_REVIEWS = [
-  {
-    id: 'rev-1',
-    name: 'Nguyễn Văn Hoàng',
-    product: 'Bích Sa Trà',
-    rating: 5,
-    comment: 'Bích Sa Trà hương thơm thanh nhẹ, vị hậu ngọt rất sâu lắng. Nước trà óng vàng quyến rũ, đúng chất trà cổ thụ đỉnh núi.',
-    date: '2026-03-02',
-    status: 'approved'
-  },
-  {
-    id: 'rev-2',
-    name: 'Trần Thị Ánh Tuyết',
-    product: 'Bạch Vân Trà',
-    rating: 5,
-    comment: 'Bạch Vân Trà vị trà dịu êm, không bị chát gắt. Uống vào buổi sáng cảm giác tinh thần rất thư thái và minh mẫn.',
-    date: '2026-02-18',
-    status: 'approved'
-  },
-  {
-    id: 'rev-3',
-    name: 'Phạm Minh Tú',
-    product: 'Huyền Động Trà',
-    rating: 5,
-    comment: 'Huyền Động Trà nước trà thẫm đậm đà, hậu vị mật ngọt tự nhiên kéo dài. Sản phẩm đóng gói rất sang trọng và chỉn chu.',
-    date: '2026-01-25',
-    status: 'approved'
-  },
-  {
-    id: 'rev-4',
-    name: 'Lê Đăng Khoa',
-    product: 'Hoàng Nha Trà',
-    rating: 5,
-    comment: 'Trà tôm búp Hoàng Nha pha được rất nhiều nước mà vẫn giữ trọn hương vị. Rất hài lòng về chất lượng sản phẩm Tamling.',
-    date: '2026-01-10',
-    status: 'approved'
-  }
+const CATEGORIES = [
+  { id: 'ALL', labelVi: 'Tất cả sản phẩm', labelEn: 'All Products' },
+  { id: 'specialtyTea', labelVi: 'Trà cổ thụ đặc sản', labelEn: 'Specialty Ancient Teas' },
+  { id: 'wellnessTea', labelVi: 'Trà thảo mộc dưỡng sinh', labelEn: 'Wellness Herbal Tea' },
+  { id: 'ceramic', labelVi: 'Gốm hoạt khoáng hữu cơ', labelEn: 'Organic Stoneware' },
+  { id: 'incense', labelVi: 'Nhang Thiền', labelEn: 'Zen Incense' },
+  { id: 'herbalBath', labelVi: 'Dung dịch thảo mộc ngoài da', labelEn: 'Herbal Skin Solution' }
 ];
 
-const TEA_PRODUCTS = [
+const ALL_PRODUCTS = [
   'Bích Sa Trà',
   'Bạch Vân Trà',
   'Hoàng Nha Trà',
@@ -47,18 +18,26 @@ const TEA_PRODUCTS = [
   'Hồng Dương Trà',
   'Lục Tuyền Trà',
   'Ngọc Sương Trà',
-  'Phi Trang Trà'
+  'Phi Trang Trà',
+  'Gốm hoạt khoáng hữu cơ Việt Nam',
+  'Nhang Thiền',
+  'Trà thảo mộc dưỡng sinh hàng ngày',
+  'Dung dịch thảo mộc làm sạch ngoài da'
 ];
 
 const Reviews = ({ t, currentLang }) => {
   const [reviews, setReviews] = useState([]);
-  const [filterProduct, setFilterProduct] = useState('ALL');
+  const [selectedCategory, setSelectedCategory] = useState('ALL');
+  const [selectedProduct, setSelectedProduct] = useState('ALL');
+  const [visibleCount, setVisibleCount] = useState(8);
 
   // Form State
   const [showFormModal, setShowFormModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
+    country: 'Việt Nam',
+    age: '30',
     product: 'Bích Sa Trà',
     rating: 5,
     comment: ''
@@ -74,15 +53,15 @@ const Reviews = ({ t, currentLang }) => {
   // Load reviews on mount
   useEffect(() => {
     try {
-      const stored = localStorage.getItem('tamling_reviews');
+      const stored = localStorage.getItem('tamling_reviews_v2');
       if (stored) {
         setReviews(JSON.parse(stored));
       } else {
-        setReviews(DEFAULT_REVIEWS);
-        localStorage.setItem('tamling_reviews', JSON.stringify(DEFAULT_REVIEWS));
+        setReviews(INITIAL_REVIEWS);
+        localStorage.setItem('tamling_reviews_v2', JSON.stringify(INITIAL_REVIEWS));
       }
     } catch (e) {
-      setReviews(DEFAULT_REVIEWS);
+      setReviews(INITIAL_REVIEWS);
     }
   }, []);
 
@@ -90,7 +69,7 @@ const Reviews = ({ t, currentLang }) => {
   const updateReviews = (newReviews) => {
     setReviews(newReviews);
     try {
-      localStorage.setItem('tamling_reviews', JSON.stringify(newReviews));
+      localStorage.setItem('tamling_reviews_v2', JSON.stringify(newReviews));
     } catch (e) {
       console.error('Failed to save reviews to localStorage', e);
     }
@@ -101,9 +80,14 @@ const Reviews = ({ t, currentLang }) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.comment.trim()) return;
 
+    const formattedName = `${formData.name.trim()} (${formData.country.trim() || 'Việt Nam'}, ${formData.age || '30'}t)`;
+
     const newRev = {
       id: `rev-${Date.now()}`,
-      name: formData.name.trim(),
+      name: formattedName,
+      rawName: formData.name.trim(),
+      country: formData.country.trim() || 'Việt Nam',
+      age: formData.age || '30',
       product: formData.product,
       rating: Number(formData.rating),
       comment: formData.comment.trim(),
@@ -117,6 +101,8 @@ const Reviews = ({ t, currentLang }) => {
     // Reset form
     setFormData({
       name: '',
+      country: 'Việt Nam',
+      age: '30',
       product: 'Bích Sa Trà',
       rating: 5,
       comment: ''
@@ -154,9 +140,20 @@ const Reviews = ({ t, currentLang }) => {
 
   // Filter approved reviews for display
   const approvedReviews = reviews.filter(r => r.status === 'approved');
-  const filteredApproved = filterProduct === 'ALL'
-    ? approvedReviews
-    : approvedReviews.filter(r => r.product === filterProduct);
+
+  const filteredApproved = approvedReviews.filter(r => {
+    if (selectedCategory !== 'ALL') {
+      if (selectedCategory === 'specialtyTea' && !['Bích Sa Trà','Bạch Vân Trà','Hoàng Nha Trà','Huyền Động Trà','Hồng Dương Trà','Lục Tuyền Trà','Ngọc Sương Trà','Phi Trang Trà'].includes(r.product)) return false;
+      if (selectedCategory === 'ceramic' && r.product !== 'Gốm hoạt khoáng hữu cơ Việt Nam') return false;
+      if (selectedCategory === 'incense' && r.product !== 'Nhang Thiền') return false;
+      if (selectedCategory === 'wellnessTea' && r.product !== 'Trà thảo mộc dưỡng sinh hàng ngày') return false;
+      if (selectedCategory === 'herbalBath' && r.product !== 'Dung dịch thảo mộc làm sạch ngoài da') return false;
+    }
+    if (selectedProduct !== 'ALL' && r.product !== selectedProduct) {
+      return false;
+    }
+    return true;
+  });
 
   // Moderation lists
   const pendingReviews = reviews.filter(r => r.status === 'pending');
@@ -164,8 +161,8 @@ const Reviews = ({ t, currentLang }) => {
   const rejectedReviews = reviews.filter(r => r.status === 'rejected');
 
   // Compute average rating
-  const avgRating = approvedReviews.length > 0
-    ? (approvedReviews.reduce((sum, r) => sum + r.rating, 0) / approvedReviews.length).toFixed(1)
+  const avgRating = filteredApproved.length > 0
+    ? (filteredApproved.reduce((sum, r) => sum + r.rating, 0) / filteredApproved.length).toFixed(1)
     : '5.0';
 
   const renderStars = (count) => {
@@ -207,13 +204,13 @@ const Reviews = ({ t, currentLang }) => {
         .reviews-filter-bar {
           display: flex;
           gap: 10px;
-          margin-bottom: 30px;
+          margin-bottom: 20px;
           overflow-x: auto;
           padding-bottom: 10px;
           flex-wrap: wrap;
         }
         .filter-chip {
-          padding: 8px 16px;
+          padding: 8px 18px;
           border-radius: 20px;
           font-size: 0.85rem;
           font-weight: 600;
@@ -256,7 +253,7 @@ const Reviews = ({ t, currentLang }) => {
         }
         .review-user-name {
           font-family: var(--font-heading);
-          font-size: 1.1rem;
+          font-size: 1.05rem;
           font-weight: 700;
           color: var(--primary-dark);
         }
@@ -292,7 +289,7 @@ const Reviews = ({ t, currentLang }) => {
           background-color: #fff;
           border-radius: var(--radius-lg);
           padding: 36px;
-          max-width: 600px;
+          max-width: 620px;
           width: 100%;
           box-shadow: 0 24px 60px rgba(0,0,0,0.3);
           position: relative;
@@ -349,7 +346,7 @@ const Reviews = ({ t, currentLang }) => {
           <h2 className="section-title">{t.reviews.title}</h2>
         </div>
 
-        {/* Rating Summary & Write Button */}
+        {/* Rating Summary & Action Buttons */}
         <div className="reviews-header-card">
           <div className="rating-summary-box">
             <div className="rating-score">{avgRating}</div>
@@ -358,7 +355,7 @@ const Reviews = ({ t, currentLang }) => {
                 {renderStars(Math.round(Number(avgRating)))}
               </div>
               <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: '500' }}>
-                {approvedReviews.length} {t.reviews.totalReviews}
+                {filteredApproved.length} / {approvedReviews.length} {t.reviews.totalReviews}
               </div>
             </div>
           </div>
@@ -380,24 +377,48 @@ const Reviews = ({ t, currentLang }) => {
           </div>
         </div>
 
-        {/* Product Filter Chips */}
+        {/* Filter Bar: Category Tabs */}
         <div className="reviews-filter-bar">
-          <button
-            className={`filter-chip ${filterProduct === 'ALL' ? 'active' : ''}`}
-            onClick={() => setFilterProduct('ALL')}
-          >
-            {t.reviews.filterAll}
-          </button>
-          {TEA_PRODUCTS.map(tea => (
+          {CATEGORIES.map(cat => (
             <button
-              key={tea}
-              className={`filter-chip ${filterProduct === tea ? 'active' : ''}`}
-              onClick={() => setFilterProduct(tea)}
+              key={cat.id}
+              className={`filter-chip ${selectedCategory === cat.id ? 'active' : ''}`}
+              onClick={() => {
+                setSelectedCategory(cat.id);
+                setSelectedProduct('ALL');
+                setVisibleCount(8);
+              }}
             >
-              {tea}
+              {currentLang === 'vi' ? cat.labelVi : cat.labelEn}
             </button>
           ))}
         </div>
+
+        {/* Filter Bar: Specific Product Dropdown / Sub-chips */}
+        {selectedCategory === 'specialtyTea' && (
+          <div className="reviews-filter-bar" style={{ marginTop: '-5px', marginBottom: '30px' }}>
+            <button
+              className={`filter-chip ${selectedProduct === 'ALL' ? 'active' : ''}`}
+              style={{ fontSize: '0.78rem', padding: '6px 14px' }}
+              onClick={() => { setSelectedProduct('ALL'); setVisibleCount(8); }}
+            >
+              {t.reviews.filterAll}
+            </button>
+            {[
+              'Bích Sa Trà', 'Bạch Vân Trà', 'Hoàng Nha Trà', 'Huyền Động Trà',
+              'Hồng Dương Trà', 'Lục Tuyền Trà', 'Ngọc Sương Trà', 'Phi Trang Trà'
+            ].map(tea => (
+              <button
+                key={tea}
+                className={`filter-chip ${selectedProduct === tea ? 'active' : ''}`}
+                style={{ fontSize: '0.78rem', padding: '6px 14px' }}
+                onClick={() => { setSelectedProduct(tea); setVisibleCount(8); }}
+              >
+                {tea}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Reviews Cards List */}
         {filteredApproved.length === 0 ? (
@@ -405,29 +426,44 @@ const Reviews = ({ t, currentLang }) => {
             {t.reviews.noReviews}
           </div>
         ) : (
-          <div className="reviews-grid">
-            {filteredApproved.map(rev => (
-              <div key={rev.id} className="review-card">
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <div>
-                      <div className="review-user-name">{rev.name}</div>
-                      <span className="review-product-tag">🍵 {rev.product}</span>
+          <div>
+            <div className="reviews-grid">
+              {filteredApproved.slice(0, visibleCount).map(rev => (
+                <div key={rev.id} className="review-card">
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      <div>
+                        <div className="review-user-name">{rev.name}</div>
+                        <span className="review-product-tag">🏷️ {rev.product}</span>
+                      </div>
+                      <div>{renderStars(rev.rating)}</div>
                     </div>
-                    <div>{renderStars(rev.rating)}</div>
+
+                    <p className="review-text">"{rev.comment}"</p>
                   </div>
 
-                  <p className="review-text">"{rev.comment}"</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px dashed var(--border)', paddingTop: '12px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: 'var(--primary)', fontWeight: '600' }}>
+                      ✓ {t.reviews.verifiedPurchase}
+                    </span>
+                    <span>{rev.date}</span>
+                  </div>
                 </div>
+              ))}
+            </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px dashed var(--border)', paddingTop: '12px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: 'var(--primary)', fontWeight: '600' }}>
-                    ✓ {t.reviews.verifiedPurchase}
-                  </span>
-                  <span>{rev.date}</span>
-                </div>
+            {/* Load More Button */}
+            {visibleCount < filteredApproved.length && (
+              <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                <button
+                  className="btn btn-outline"
+                  onClick={() => setVisibleCount(prev => prev + 8)}
+                  style={{ padding: '12px 36px', borderRadius: '25px', fontWeight: '700' }}
+                >
+                  {currentLang === 'vi' ? 'Xem thêm đánh giá' : 'Load More Reviews'} ({filteredApproved.length - visibleCount})
+                </button>
               </div>
-            ))}
+            )}
           </div>
         )}
 
@@ -443,16 +479,40 @@ const Reviews = ({ t, currentLang }) => {
             </div>
 
             <form onSubmit={handleSubmitReview}>
-              <div className="form-group">
-                <label className="form-label">{t.reviews.yourName} *</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Ví dụ: Anh Nguyễn Văn A"
-                  className="form-input"
-                  value={formData.name}
-                  onChange={e => setFormData({ ...formData, name: e.target.value })}
-                />
+              <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 0.8fr', gap: '12px' }}>
+                <div>
+                  <label className="form-label">{t.reviews.yourName} *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Ví dụ: Nguyễn Văn A"
+                    className="form-input"
+                    value={formData.name}
+                    onChange={e => setFormData({ ...formData, name: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="form-label">Quốc gia / City</label>
+                  <input
+                    type="text"
+                    placeholder="Việt Nam, Japan, France..."
+                    className="form-input"
+                    value={formData.country}
+                    onChange={e => setFormData({ ...formData, country: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="form-label">Tuổi</label>
+                  <input
+                    type="number"
+                    min="18"
+                    max="90"
+                    placeholder="35"
+                    className="form-input"
+                    value={formData.age}
+                    onChange={e => setFormData({ ...formData, age: e.target.value })}
+                  />
+                </div>
               </div>
 
               <div className="form-group">
@@ -462,8 +522,8 @@ const Reviews = ({ t, currentLang }) => {
                   value={formData.product}
                   onChange={e => setFormData({ ...formData, product: e.target.value })}
                 >
-                  {TEA_PRODUCTS.map(tea => (
-                    <option key={tea} value={tea}>{tea}</option>
+                  {ALL_PRODUCTS.map(prod => (
+                    <option key={prod} value={prod}>{prod}</option>
                   ))}
                 </select>
               </div>
@@ -491,7 +551,7 @@ const Reviews = ({ t, currentLang }) => {
                 <textarea
                   rows="4"
                   required
-                  placeholder="Chia sẻ cảm nhận của bạn về hương vị, màu nước, đóng gói..."
+                  placeholder="Chia sẻ cảm nhận chi tiết của bạn về sản phẩm..."
                   className="form-textarea"
                   value={formData.comment}
                   onChange={e => setFormData({ ...formData, comment: e.target.value })}
@@ -530,7 +590,7 @@ const Reviews = ({ t, currentLang }) => {
       {/* ── MODAL 3: Owner Moderation Dashboard (Kiểm duyệt Review) ─── */}
       {showAdminModal && (
         <div className="modal-overlay" onClick={() => setShowAdminModal(false)}>
-          <div className="modal-box" style={{ maxWidth: '750px' }} onClick={e => e.stopPropagation()}>
+          <div className="modal-box" style={{ maxWidth: '780px' }} onClick={e => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '1px solid var(--border)', paddingBottom: '15px' }}>
               <h3 className="modal-title" style={{ margin: 0, fontSize: '1.35rem' }}>{t.reviews.adminTitle}</h3>
               <button onClick={() => setShowAdminModal(false)} style={{ fontSize: '1.5rem', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)' }}>✕</button>

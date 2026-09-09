@@ -187,9 +187,11 @@ const Products = ({ t, currentLang }) => {
           position: relative;
         }
         .catalog-single-img {
-          max-height: 80vh;
-          width: auto;
-          max-width: 100%;
+          width: 100%;
+          max-width: 680px;
+          height: auto;
+          max-height: 65vh;
+          object-fit: contain;
           border-radius: var(--radius-md);
           box-shadow: var(--shadow-lg);
           transition: var(--transition);
@@ -200,6 +202,34 @@ const Products = ({ t, currentLang }) => {
         .catalog-single-img:hover {
           transform: scale(1.01);
           box-shadow: 0 20px 40px rgba(30, 63, 32, 0.15);
+        }
+        .img-preview-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+          max-width: 680px;
+        }
+        .zoom-hint-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          margin-top: 10px;
+          font-size: 0.82rem;
+          font-weight: 600;
+          color: var(--primary);
+          background-color: rgba(30, 63, 32, 0.06);
+          padding: 6px 16px;
+          border-radius: 20px;
+          border: 1px solid var(--border);
+          cursor: pointer;
+          transition: var(--transition);
+          box-shadow: var(--shadow-sm);
+        }
+        .zoom-hint-badge:hover {
+          background-color: var(--primary);
+          color: var(--bg-main);
+          border-color: var(--primary);
         }
         /* Slider */
         .slider-wrapper {
@@ -412,13 +442,30 @@ const Products = ({ t, currentLang }) => {
         }
         @media (max-width: 768px) {
           .teas-grid { grid-template-columns: repeat(2, 1fr); }
-          .catalog-content-wrapper { padding: 20px 10px; }
+          .catalog-content-wrapper {
+            padding: 16px 8px;
+            min-height: auto;
+            overflow-x: hidden;
+          }
+          .catalog-single-img {
+            max-height: 44vh;
+            width: 100%;
+            object-fit: contain;
+          }
+          .zoom-hint-badge {
+            font-size: 0.76rem;
+            padding: 5px 12px;
+            margin-top: 8px;
+          }
           .slider-control-btn { width: 36px; height: 36px; font-size: 1rem; }
         }
         @media (max-width: 480px) {
           .teas-grid { grid-template-columns: repeat(2, 1fr); }
           .catalog-tabs { gap: 6px; }
           .catalog-tab-btn { padding: 8px 12px; font-size: 0.85rem; }
+          .catalog-single-img {
+            max-height: 40vh;
+          }
         }
       `}</style>
 
@@ -611,52 +658,97 @@ const Products = ({ t, currentLang }) => {
 
                 <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                   {brewingTab === 0 && (
-                    <img
-                      {...getResponsiveProps(`${sp}/${specialtyFolder}/${
-                        currentLang === 'vi' ? 'Cách Pha Trà Bằng Ấm.jpg' : 'INDIGENOUS BREWING.jpg'
-                      }`)}
-                      alt={t.catalog.brewingTeapot}
-                      className="catalog-single-img"
-                      style={{ maxWidth: '820px' }}
-                      onClick={() => openLightbox(
+                    <div className="img-preview-container">
+                      <img
+                        {...getResponsiveProps(`${sp}/${specialtyFolder}/${
+                          currentLang === 'vi' ? 'Cách Pha Trà Bằng Ấm.jpg' : 'INDIGENOUS BREWING.jpg'
+                        }`)}
+                        alt={t.catalog.brewingTeapot}
+                        className="catalog-single-img"
+                        onClick={() => openLightbox(
+                          t.catalog.brewingTeapot,
+                          `${sp}/${specialtyFolder}/${
+                            currentLang === 'vi' ? 'Cách Pha Trà Bằng Ấm.jpg' : 'INDIGENOUS BREWING.jpg'
+                          }`
+                        )}
+                      />
+                      <div className="zoom-hint-badge" onClick={() => openLightbox(
                         t.catalog.brewingTeapot,
                         `${sp}/${specialtyFolder}/${
                           currentLang === 'vi' ? 'Cách Pha Trà Bằng Ấm.jpg' : 'INDIGENOUS BREWING.jpg'
                         }`
-                      )}
-                    />
+                      )}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                          <line x1="11" y1="8" x2="11" y2="14"></line>
+                          <line x1="8" y1="11" x2="14" y2="11"></line>
+                        </svg>
+                        {currentLang === 'vi' ? 'Chạm để phóng to xem chi tiết' : 'Tap to zoom full screen'}
+                      </div>
+                    </div>
                   )}
                   {brewingTab === 1 && (
-                    <img
-                      {...getResponsiveProps(`${sp}/${specialtyFolder}/${
-                        currentLang === 'vi' ? 'Cách Pha Trà Pour-over hoặc Phin-cafe.jpg' : 'MODERN POUR-OVER OR PHIN-FILTER.jpg'
-                      }`)}
-                      alt={t.catalog.brewingPourover}
-                      className="catalog-single-img"
-                      style={{ maxWidth: '820px' }}
-                      onClick={() => openLightbox(
+                    <div className="img-preview-container">
+                      <img
+                        {...getResponsiveProps(`${sp}/${specialtyFolder}/${
+                          currentLang === 'vi' ? 'Cách Pha Trà Pour-over hoặc Phin-cafe.jpg' : 'MODERN POUR-OVER OR PHIN-FILTER.jpg'
+                        }`)}
+                        alt={t.catalog.brewingPourover}
+                        className="catalog-single-img"
+                        onClick={() => openLightbox(
+                          t.catalog.brewingPourover,
+                          `${sp}/${specialtyFolder}/${
+                            currentLang === 'vi' ? 'Cách Pha Trà Pour-over hoặc Phin-cafe.jpg' : 'MODERN POUR-OVER OR PHIN-FILTER.jpg'
+                          }`
+                        )}
+                      />
+                      <div className="zoom-hint-badge" onClick={() => openLightbox(
                         t.catalog.brewingPourover,
                         `${sp}/${specialtyFolder}/${
                           currentLang === 'vi' ? 'Cách Pha Trà Pour-over hoặc Phin-cafe.jpg' : 'MODERN POUR-OVER OR PHIN-FILTER.jpg'
                         }`
-                      )}
-                    />
+                      )}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                          <line x1="11" y1="8" x2="11" y2="14"></line>
+                          <line x1="8" y1="11" x2="14" y2="11"></line>
+                        </svg>
+                        {currentLang === 'vi' ? 'Chạm để phóng to xem chi tiết' : 'Tap to zoom full screen'}
+                      </div>
+                    </div>
                   )}
                   {brewingTab === 2 && (
-                    <img
-                      {...getResponsiveProps(`${sp}/${specialtyFolder}/${
-                        currentLang === 'vi' ? 'Lưu Ý.jpg' : 'IMPORTANT NOTICE.jpg'
-                      }`)}
-                      alt={t.catalog.noticeTitle}
-                      className="catalog-single-img"
-                      style={{ maxWidth: '820px' }}
-                      onClick={() => openLightbox(
+                    <div className="img-preview-container">
+                      <img
+                        {...getResponsiveProps(`${sp}/${specialtyFolder}/${
+                          currentLang === 'vi' ? 'Lưu Ý.jpg' : 'IMPORTANT NOTICE.jpg'
+                        }`)}
+                        alt={t.catalog.noticeTitle}
+                        className="catalog-single-img"
+                        onClick={() => openLightbox(
+                          t.catalog.noticeTitle,
+                          `${sp}/${specialtyFolder}/${
+                            currentLang === 'vi' ? 'Lưu Ý.jpg' : 'IMPORTANT NOTICE.jpg'
+                          }`
+                        )}
+                      />
+                      <div className="zoom-hint-badge" onClick={() => openLightbox(
                         t.catalog.noticeTitle,
                         `${sp}/${specialtyFolder}/${
                           currentLang === 'vi' ? 'Lưu Ý.jpg' : 'IMPORTANT NOTICE.jpg'
                         }`
-                      )}
-                    />
+                      )}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                          <line x1="11" y1="8" x2="11" y2="14"></line>
+                          <line x1="8" y1="11" x2="14" y2="11"></line>
+                        </svg>
+                        {currentLang === 'vi' ? 'Chạm để phóng to xem chi tiết' : 'Tap to zoom full screen'}
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>

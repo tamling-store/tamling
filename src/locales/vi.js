@@ -34,8 +34,8 @@ const vi = {
     prev: "Trước",
     next: "Sau",
     page: "Trang",
-    brewingTeapot: "Phương pháp pha ấm",
-    brewingPourover: "Phương pháp pha Pour-Over",
+    brewingTeapot: "Phương pháp pha trà truyền thống - dùng Ấm pha trà",
+    brewingPourover: "Phương pháp pha trà hiện đại - Nghiền vụn trà và pha Pour-over, Phin-cafe",
     noticeTitle: "Lưu ý quan trọng",
     teasTitle: "8 Danh Trà Cổ Thụ Đặc Sản Việt Nam",
     downloadPdf: "Tải Catalogue PDF"

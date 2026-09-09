@@ -34,8 +34,8 @@ const en = {
     prev: "Previous",
     next: "Next",
     page: "Page",
-    brewingTeapot: "Teapot Brewing Guide",
-    brewingPourover: "Pour-Over Brewing Guide",
+    brewingTeapot: "Traditional Brewing Method — Teapot",
+    brewingPourover: "Modern Brewing Method — Crushed Leaves, Pour-Over & Phin-Filter",
     noticeTitle: "Important Notice",
     teasTitle: "8 Rare Specialty Teas",
     downloadPdf: "Download PDF Catalog"
